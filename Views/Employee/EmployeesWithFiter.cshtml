@@ -1,0 +1,168 @@
+﻿
+@model IEnumerable<EmployeeManagement.Models.Employee_Master>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
+@{
+    List<SelectListItem> Categories = new List<SelectListItem>();
+    //Categories.Add(new SelectListItem()
+    //{
+    //    Value = "",
+    //    Text = "All"
+    //});
+    Categories.Add(new SelectListItem()
+    {
+        Value = "R",
+        Text = "Regular"
+    });
+    Categories.Add(new SelectListItem()
+    {
+        Value = "D",
+        Text = "Daily wages"
+    });
+}
+
+<form action="/Employee/EmployeesWithFiter">
+    <div class="row" style="margin-bottom: 100px;">
+        <div class="">
+            <label class="control-label col-md-2">Designation</label>
+            <div class="col-md-2">
+                @Html.DropDownList("Designation", new SelectList(ViewBag.ddl_designation, "Value", "Text"), "All", new { @class = "form-control"})
+            </div>
+        </div>
+        <div class="" >
+            <label class="control-label col-md-2">Category</label>
+            <div class="col-md-2">
+                @Html.DropDownList("Category", new SelectList(Categories, "Value", "Text"), "All", new { @class = "form-control"})
+            </div>
+        </div>
+        <button type="submit" style="margin-left: 30px;" class="btn btn-primary">Filter Data</button>
+    </div>
+</form>
+</p>
+<table class="table" id="tbl_employee">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_First_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Middle_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Last_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Address)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Salary)
+            </th>
+            <th style="width:60px;">
+                Action
+            </th>
+        </tr>
+    </thead>
+
+    @if (Model != null)
+    {
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee_Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee_First_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee_Middle_name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee_Last_Name)
+                    </td>
+                    <td>
+                        @item.DOB.ToString("dd-MM-yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Designation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee_Address)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @if (item.Employee_category == "R")
+                        {
+                            <span>Regular</span>
+                        }
+                        else if (item.Employee_category == "D")
+                        {
+                            <span>Daily Wages</span>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee_Salary)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { Employee_Id = item.Employee_Id }) |
+                        @Html.ActionLink("View", "ViewEmployee", new { Employee_Id = item.Employee_Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { Employee_Id = item.Employee_Id })
+                    </td>
+                </tr>
+
+
+            }
+        </tbody>
+    }
+
+
+
+</table>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            alert("@ViewBag.Message");
+    </script>
+}
+<style>
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 50px;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+    debugger
+    $(document).ready(function () {
+        $('#tbl_employee').dataTable({
+            "scrollX": true
+        });
+    });
+</script>
+

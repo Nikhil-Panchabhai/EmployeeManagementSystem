@@ -1,0 +1,135 @@
+﻿@model IEnumerable<EmployeeManagement.Models.Employee_Master>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
+
+<p>
+    <a class="btn btn-primary" href="/Employee/Register" style="float: right;margin: 15px;"> Register</a>
+    @*@Html.ActionLink("Create New", "Create",new { @style = "float: right;margin: 15px;" })*@
+</p>
+<table class="table" id="tbl_employee">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_First_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Middle_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Last_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DOB)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Address)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee_Salary)
+            </th>
+            <th style="width:60px;">
+                Action
+            </th>
+        </tr>
+    </thead>
+
+    @if (Model != null)
+    {
+        <tbody>
+    @foreach (var item in Model)
+    {
+
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_First_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Middle_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Last_Name)
+        </td>
+        <td>
+            @item.DOB.ToString("dd-MM-yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Designation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Address)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @if (item.Employee_category == "R")
+            {
+                <span>Regular</span>
+            }
+            else if (item.Employee_category == "D")
+            {
+                <span>Daily Wages</span>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Employee_Salary)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  Employee_Id=item.Employee_Id }) |
+            @Html.ActionLink("View", "ViewEmployee", new { Employee_Id=item.Employee_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { Employee_Id=item.Employee_Id})
+        </td>
+    </tr>
+
+
+    }
+</tbody>
+    }
+
+
+
+</table>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            alert("@ViewBag.Message");
+    </script>
+}
+<style>
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 100px;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+    debugger
+    $(document).ready(function () {
+        $('#tbl_employee').dataTable({
+            "scrollX": true
+        });
+    });
+</script>
+

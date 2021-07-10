@@ -1,0 +1,140 @@
+﻿@model EmployeeManagement.Models.Employee_Master
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>View Employee</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Employee_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.Employee_Id, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Employee_Id, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Employee_First_name, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Employee_First_name, new { htmlAttributes = new { @class = "form-control" ,@disabled="disabled"} })
+                    @Html.ValidationMessageFor(model => model.Employee_First_name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Employee_Middle_name, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Employee_Middle_name, new { htmlAttributes = new { @class = "form-control" ,@disabled="disabled"} })
+                    @Html.ValidationMessageFor(model => model.Employee_Middle_name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Employee_Last_Name, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Employee_Last_Name, new { htmlAttributes = new { @class = "form-control",@disabled="disabled" } })
+                    @Html.ValidationMessageFor(model => model.Employee_Last_Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @type = "date",@disabled="disabled" } })
+                    @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Designation_Id, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.DropDownListFor(model => model.Designation_Id, new SelectList(ViewBag.ddl_designation, "Value", "Text"), "Please select", new { @class = "form-control" ,@disabled="disabled"})
+                    @Html.ValidationMessageFor(model => model.Designation_Id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Employee_Address, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Employee_Address, new { htmlAttributes = new { @class = "form-control" ,@disabled="disabled"} })
+                    @Html.ValidationMessageFor(model => model.Employee_Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control",@disabled="disabled" } })
+                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Employee_category, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @{
+                        List<SelectListItem> Categoryes = new List<SelectListItem>();
+                        Categoryes.Add(new SelectListItem()
+                        {
+                            Value = "R",
+                            Text = "Regular"
+                        });
+                        Categoryes.Add(new SelectListItem()
+                        {
+                            Value = "D",
+                            Text = "Daily wages"
+                        });
+                    }
+                    @Html.DropDownListFor(model => model.Employee_category, Categoryes, new { @class = "form-control",@disabled="disabled" })
+                    @Html.ValidationMessageFor(model => model.Employee_category, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Employee_Salary, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Employee_Salary, new { htmlAttributes = new { @class = "form-control",@disabled="disabled" } })
+                    @Html.ValidationMessageFor(model => model.Employee_Salary, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address_Same_As_Company, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Address_Same_As_Company, new { htmlAttributes = new { @style = "margin-left: 3px;",@disabled="disabled" } })
+                            @Html.ValidationMessageFor(model => model.Address_Same_As_Company, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-4">
+                    <input type="button" onclick="location.href='/Employee/List'" class="btn btn-warning" value="Back To Home" style="float:left;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        alert("@ViewBag.Message");
+        location.href = "/Employee/List";
+    </script>
+}
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
